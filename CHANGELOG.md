@@ -1,9 +1,11 @@
 # Change Log
 
-All notable changes to the "statbar" extension will be documented in this file.
+All notable changes to the stats bar extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.0] - 2021-08-28
 
-## [Unreleased]
+### Added
 
-- Initial release
+- Support show cpu load, loadavg and network speed
+- Support copy ip to clipboard
+- Support change loacation and refresh interval

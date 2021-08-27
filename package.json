@@ -1,151 +1,179 @@
 {
-	"name": "sys-stats-bar",
-	"displayName": "Sys Stats Bar",
-	"description": "A status bar to show system stats",
-	"version": "0.0.1",
-	"publisher": "njzy",
-	"engines": {
-		"vscode": "^1.50.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"repository": "https://github.com/njzydark/vscode-sys-stats-bar",
-	"main": "./out/extension.js",
-	"activationEvents": [
-		"onStartupFinished"
-	],
-	"contributes": {
-		"configuration": [
-			{
-				"title": "SysStatsBar",
-				"properties": {
-					"sysStatsBar.enabled": {
-						"type": "boolean",
-						"default": true,
-						"description": "Specifies whether to enable all modules"
-					},
-					"sysStatsBar.refreshInterval": {
-						"type": "number",
-						"default": 1800,
-						"description": "Specifies the refresh interval time (ms) to update all modules",
-						"minimum": 1000
-					},
-					"sysStatsBar.cpuLoad.enabled": {
-						"type": "boolean",
-						"default": true,
-						"description": "Specifies whether to enable cpu load"
-					},
-					"sysStatsBar.networkSpeed.enabled": {
-						"type": "boolean",
-						"default": true,
-						"description": "Specifies whether to enable network speed"
-					},
-					"sysStatsBar.loadavg.enabled": {
-						"type": "boolean",
-						"default": true,
-						"description": "Specifies whether to enable loadavg"
-					}
-				}
-			}
-		],
-		"commands": [
-			{
-				"command": "SysStatsBar.CopyIp",
-				"title": "SysStatsBar: Copy IP"
-			},
-			{
-				"command": "SysStatsBar.EnableAll",
-				"title": "SysStatsBar: Enable All"
-			},
-			{
-				"command": "SysStatsBar.DisableAll",
-				"title": "SysStatsBar: Disable All"
-			},
-			{
-				"command": "SysStatsBar.EnableCpuLoad",
-				"title": "SysStatsBar: Enable Cpu Load"
-			},
-			{
-				"command": "SysStatsBar.EnableNetworkSpeed",
-				"title": "SysStatsBar: Enable Network Speed"
-			},
-			{
-				"command": "SysStatsBar.EnableLoadavg",
-				"title": "SysStatsBar: Enable Loadavg"
-			},
-			{
-				"command": "SysStatsBar.DisableCpuLoad",
-				"title": "SysStatsBar: Disable Cpu Load"
-			},
-			{
-				"command": "SysStatsBar.DisableNetworkSpeed",
-				"title": "SysStatsBar: Disable Network Speed"
-			},
-			{
-				"command": "SysStatsBar.DisableLoadavg",
-				"title": "SysStatsBar: Disable Loadavg"
-			}
-		],
-		"menus": {
-			"commandPalette": [
-				{
-					"command": "SysStatsBar.EnableAll",
-					"when": "!config.sysStatsBar.enabled"
-				},
-				{
-					"command": "SysStatsBar.EnableCpuLoad",
-					"when": "!config.sysStatsBar.cpuLoad.enabled"
-				},
-				{
-					"command": "SysStatsBar.EnableNetworkSpeed",
-					"when": "!config.sysStatsBar.networkSpeed.enabled"
-				},
-				{
-					"command": "SysStatsBar.EnableLoadavg",
-					"when": "!config.sysStatsBar.loadavg.enabled"
-				},
-				{
-					"command": "SysStatsBar.DisableAll",
-					"when": "config.sysStatsBar.enabled"
-				},
-				{
-					"command": "SysStatsBar.DisableCpuLoad",
-					"when": "config.sysStatsBar.cpuLoad.enabled"
-				},
-				{
-					"command": "SysStatsBar.DisableNetworkSpeed",
-					"when": "config.sysStatsBar.networkSpeed.enabled"
-				},
-				{
-					"command": "SysStatsBar.DisableLoadavg",
-					"when": "config.sysStatsBar.loadavg.enabled"
-				}
-			]
-		}
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.59.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.2.2",
-		"@types/node": "14.x",
-		"eslint": "^7.27.0",
-		"@typescript-eslint/eslint-plugin": "^4.26.0",
-		"@typescript-eslint/parser": "^4.26.0",
-		"glob": "^7.1.7",
-		"mocha": "^8.4.0",
-		"typescript": "^4.3.2",
-		"vscode-test": "^1.5.2"
-	},
-	"dependencies": {
-		"systeminformation": "^5.8.0"
-	}
+  "name": "stats-bar",
+  "displayName": "Stats Bar",
+  "description": "A status bar to show system stats",
+  "version": "0.1.0",
+  "publisher": "njzy",
+  "engines": {
+    "vscode": "^1.50.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "system status",
+    "network speed",
+    "cpu load",
+    "monitor"
+  ],
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/njzydark/vscode-stats-bar.git"
+  },
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "configuration": [
+      {
+        "title": "StatsBar",
+        "properties": {
+          "statsBar.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Specifies whether to enable all modules"
+          },
+          "statsBar.location": {
+            "type": "string",
+            "default": "Left",
+            "enum": [
+              "Left",
+              "Right"
+            ],
+            "enumDescriptions": [
+              "Left-aligned in the status bar",
+              "Right-aligned in the status bar"
+            ]
+          },
+          "statsBar.refreshInterval": {
+            "type": "number",
+            "default": 1800,
+            "description": "Specifies the refresh interval time (ms) to update all modules",
+            "minimum": 1000
+          },
+          "statsBar.cpuLoad.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Specifies whether to enable cpu load"
+          },
+          "statsBar.networkSpeed.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Specifies whether to enable network speed"
+          },
+          "statsBar.loadavg.enabled": {
+            "type": "boolean",
+            "default": true,
+            "description": "Specifies whether to enable loadavg"
+          }
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "StatsBar.CopyIp",
+        "title": "StatsBar: Copy IP"
+      },
+      {
+        "command": "StatsBar.EnableAll",
+        "title": "StatsBar: Enable All"
+      },
+      {
+        "command": "StatsBar.DisableAll",
+        "title": "StatsBar: Disable All"
+      },
+      {
+        "command": "StatsBar.EnableCpuLoad",
+        "title": "StatsBar: Enable Cpu Load"
+      },
+      {
+        "command": "StatsBar.EnableNetworkSpeed",
+        "title": "StatsBar: Enable Network Speed"
+      },
+      {
+        "command": "StatsBar.EnableLoadavg",
+        "title": "StatsBar: Enable Loadavg"
+      },
+      {
+        "command": "StatsBar.DisableCpuLoad",
+        "title": "StatsBar: Disable Cpu Load"
+      },
+      {
+        "command": "StatsBar.DisableNetworkSpeed",
+        "title": "StatsBar: Disable Network Speed"
+      },
+      {
+        "command": "StatsBar.DisableLoadavg",
+        "title": "StatsBar: Disable Loadavg"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "StatsBar.EnableAll",
+          "when": "!config.statsBar.enabled"
+        },
+        {
+          "command": "StatsBar.EnableCpuLoad",
+          "when": "!config.statsBar.cpuLoad.enabled"
+        },
+        {
+          "command": "StatsBar.EnableNetworkSpeed",
+          "when": "!config.statsBar.networkSpeed.enabled"
+        },
+        {
+          "command": "StatsBar.EnableLoadavg",
+          "when": "!config.statsBar.loadavg.enabled"
+        },
+        {
+          "command": "StatsBar.DisableAll",
+          "when": "config.statsBar.enabled"
+        },
+        {
+          "command": "StatsBar.DisableCpuLoad",
+          "when": "config.statsBar.cpuLoad.enabled"
+        },
+        {
+          "command": "StatsBar.DisableNetworkSpeed",
+          "when": "config.statsBar.networkSpeed.enabled"
+        },
+        {
+          "command": "StatsBar.DisableLoadavg",
+          "when": "config.statsBar.loadavg.enabled"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.50.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "eslint": "^7.27.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
+  },
+  "dependencies": {
+    "systeminformation": "^5.8.0"
+  },
+  "bugs": {
+    "url": "https://github.com/njzydark/vscode-stats-bar/issues"
+  },
+  "homepage": "https://github.com/njzydark/vscode-stats-bar#readme",
+  "author": "njzy",
+  "license": "MIT"
 }
