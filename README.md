@@ -8,7 +8,7 @@ A vscode extension to show system stats in status bar
 
 ## Features
 
-- Support show cpu load, loadavg and network speed
+- Support show cpu load, loadavg, network speed, memory usage and uptime
 - Support copy ip to clipboard
 - Support change loacation and refresh interval
 
@@ -20,6 +20,8 @@ A vscode extension to show system stats in status bar
 * `statsBar.cpuLoad.enabled`: enable/disable cpuload
 * `statsBar.loadavg.enabled`: enable/disable loadavg
 * `statsBar.networkSpeed.enabled`: enable/disable network speed
+* `statsBar.memoUsage.enabled`: enable/disable memoUsage speed
+* `statsBar.uptime.enabled`: enable/disable uptime speed
 
 ## Thanks
 

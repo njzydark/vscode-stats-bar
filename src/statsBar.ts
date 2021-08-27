@@ -1,10 +1,13 @@
 import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from "vscode";
-import { StatsModules, ConfigurationKeys } from "./types";
-import { sysinfoData } from "./sysinfo";
+import { ConfigurationKeys } from "./types";
+import { sysinfoData, SysinfoData, StatsModules } from "./sysinfo";
 import { setting } from "./setting";
+import { formatBytes, formatTimes } from "./utils";
+
+type Await<T extends () => unknown> = T extends () => PromiseLike<infer U> ? U : ReturnType<T>;
 
 class StatsBar {
-  defaultModules: StatsModules[] = ["cpuLoad", "loadavg", "networkSpeed"];
+  defaultModules: StatsModules[] = ["cpuLoad", "loadavg", "networkSpeed", "memoUsage", "uptime"];
   modules: StatsModules[] = [];
   statusItems: StatusBarItem[] = [];
   timer: NodeJS.Timeout | null = null;
@@ -44,6 +47,10 @@ class StatsBar {
         return true;
       } else if (module === "networkSpeed" && setting.cfg.get(ConfigurationKeys.NetworkSpeedEnabled)) {
         return true;
+      } else if (module === "memoUsage" && setting.cfg.get(ConfigurationKeys.MemoUsageEnabled)) {
+        return true;
+      } else if (module === "uptime" && setting.cfg.get(ConfigurationKeys.UptimeEnabled)) {
+        return true;
       } else {
         return false;
       }
@@ -58,13 +65,53 @@ class StatsBar {
   }
 
   private async getSysInfo() {
-    const promises = this.modules.map((module) => sysinfoData[module]?.());
+    const promises = this.modules.map(async (module) => {
+      const res = await sysinfoData[module]();
+      return this.formatRes(module, res);
+    });
     const res = await Promise.all(promises);
     res.forEach((data, index) => {
       const curStatusItem = this.statusItems[index];
       curStatusItem.text = data || "-";
       curStatusItem.show();
     });
+  }
+
+  private formatRes(module: StatsModules, rawRes: unknown) {
+    if (module === "cpuLoad") {
+      let res = rawRes as Await<SysinfoData["cpuLoad"]>;
+      return res ? `${res.toFixed(0)}%` : "-";
+    } else if (module === "loadavg") {
+      let res = rawRes as Await<SysinfoData["loadavg"]>;
+      return res ? `${res.map((item) => item.toFixed(2)).join(", ")}` : "-";
+    } else if (module === "memoUsage") {
+      let res = rawRes as Await<SysinfoData["memoUsage"]>;
+      if (res) {
+        const used = formatBytes(res.active, 2);
+        const toal = formatBytes(res.total, 2);
+        return `M: ${used.data}/${toal.data} ${toal.unit}`;
+      } else {
+        return "-";
+      }
+    } else if (module === "networkSpeed") {
+      let res = rawRes as Await<SysinfoData["networkSpeed"]>;
+      if (res) {
+        const up = formatBytes(res.up);
+        const down = formatBytes(res.down);
+        return `U: ${up.data} ${up.unit}/s - D: ${down.data} ${down.unit}/s`;
+      } else {
+        return "-";
+      }
+    } else if (module === "uptime") {
+      let res = rawRes as Await<SysinfoData["uptime"]>;
+      if (res) {
+        const data = formatTimes(res);
+        return data.map((item) => `${item.data}${item.unit}`).join(", ");
+      } else {
+        return "-";
+      }
+    }
+    return "-";
   }
 
   onSettingUpdate() {

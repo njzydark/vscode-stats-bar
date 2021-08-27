@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"
@@ -14,13 +14,12 @@
     "system status",
     "network speed",
     "cpu load",
+    "memory usage",
+    "uptime",
     "monitor"
   ],
   "icon": "images/icon.png",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/njzydark/vscode-stats-bar.git"
-  },
+  "repository": "https://github.com/njzydark/vscode-stats-bar.git",
   "main": "./out/extension.js",
   "activationEvents": [
     "onStartupFinished"
@@ -58,15 +57,25 @@
             "default": true,
             "description": "Specifies whether to enable cpu load"
           },
+          "statsBar.loadavg.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Specifies whether to enable loadavg"
+          },
           "statsBar.networkSpeed.enabled": {
             "type": "boolean",
             "default": true,
             "description": "Specifies whether to enable network speed"
           },
-          "statsBar.loadavg.enabled": {
+          "statsBar.memoUsage.enabled": {
             "type": "boolean",
             "default": true,
-            "description": "Specifies whether to enable loadavg"
+            "description": "Specifies whether to enable memory usage"
+          },
+          "statsBar.uptime.enabled": {
+            "type": "boolean",
+            "default": false,
+            "description": "Specifies whether to enable uptime"
           }
         }
       }
@@ -89,24 +98,40 @@
         "title": "StatsBar: Enable Cpu Load"
       },
       {
-        "command": "StatsBar.EnableNetworkSpeed",
-        "title": "StatsBar: Enable Network Speed"
-      },
-      {
-        "command": "StatsBar.EnableLoadavg",
-        "title": "StatsBar: Enable Loadavg"
-      },
-      {
         "command": "StatsBar.DisableCpuLoad",
         "title": "StatsBar: Disable Cpu Load"
+      },
+      {
+        "command": "StatsBar.EnableNetworkSpeed",
+        "title": "StatsBar: Enable Network Speed"
       },
       {
         "command": "StatsBar.DisableNetworkSpeed",
         "title": "StatsBar: Disable Network Speed"
       },
       {
+        "command": "StatsBar.EnableLoadavg",
+        "title": "StatsBar: Enable Loadavg"
+      },
+      {
         "command": "StatsBar.DisableLoadavg",
         "title": "StatsBar: Disable Loadavg"
+      },
+      {
+        "command": "StatsBar.EnableMemoUsage",
+        "title": "StatsBar: Enable Memory Usage"
+      },
+      {
+        "command": "StatsBar.DisableMemoUsage",
+        "title": "StatsBar: Disable Memory Usage"
+      },
+      {
+        "command": "StatsBar.EnableUptime",
+        "title": "StatsBar: Enable Uptime"
+      },
+      {
+        "command": "StatsBar.DisableUptime",
+        "title": "StatsBar: Disable Uptime"
       }
     ],
     "menus": {
@@ -116,32 +141,48 @@
           "when": "!config.statsBar.enabled"
         },
         {
-          "command": "StatsBar.EnableCpuLoad",
-          "when": "!config.statsBar.cpuLoad.enabled"
-        },
-        {
-          "command": "StatsBar.EnableNetworkSpeed",
-          "when": "!config.statsBar.networkSpeed.enabled"
-        },
-        {
-          "command": "StatsBar.EnableLoadavg",
-          "when": "!config.statsBar.loadavg.enabled"
-        },
-        {
           "command": "StatsBar.DisableAll",
           "when": "config.statsBar.enabled"
+        },
+        {
+          "command": "StatsBar.EnableCpuLoad",
+          "when": "!config.statsBar.cpuLoad.enabled"
         },
         {
           "command": "StatsBar.DisableCpuLoad",
           "when": "config.statsBar.cpuLoad.enabled"
         },
         {
+          "command": "StatsBar.EnableNetworkSpeed",
+          "when": "!config.statsBar.networkSpeed.enabled"
+        },
+        {
           "command": "StatsBar.DisableNetworkSpeed",
           "when": "config.statsBar.networkSpeed.enabled"
         },
         {
+          "command": "StatsBar.EnableLoadavg",
+          "when": "!config.statsBar.loadavg.enabled"
+        },
+        {
           "command": "StatsBar.DisableLoadavg",
           "when": "config.statsBar.loadavg.enabled"
+        },
+        {
+          "command": "StatsBar.EnableMemoUsage",
+          "when": "!config.statsBar.memoUsage.enabled"
+        },
+        {
+          "command": "StatsBar.DisableMemoUsage",
+          "when": "config.statsBar.memoUsage.enabled"
+        },
+        {
+          "command": "StatsBar.EnableUptime",
+          "when": "!config.statsBar.uptime.enabled"
+        },
+        {
+          "command": "StatsBar.DisableUptime",
+          "when": "config.statsBar.uptime.enabled"
         }
       ]
     }
