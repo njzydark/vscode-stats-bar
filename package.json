@@ -1,30 +1,128 @@
 {
-	"name": "stats-bar",
-	"displayName": "StatsBar",
-	"description": "",
+	"name": "sys-stats-bar",
+	"displayName": "Sys Stats Bar",
+	"description": "A status bar to show system stats",
 	"version": "0.0.1",
+	"publisher": "njzy",
 	"engines": {
-		"vscode": "^1.59.0"
+		"vscode": "^1.50.0"
 	},
 	"categories": [
 		"Other"
 	],
-	"publisher": "njzy",
-	"repository": {
-		"url": "https://github.com/njzydark/vscode-sys-stats-bar"
-	},
-	"activationEvents": [
-		"*",
-		"onCommand:statbar.helloWorld"
-	],
+	"repository": "https://github.com/njzydark/vscode-sys-stats-bar",
 	"main": "./out/extension.js",
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"contributes": {
+		"configuration": [
+			{
+				"title": "SysStatsBar",
+				"properties": {
+					"sysStatsBar.enabled": {
+						"type": "boolean",
+						"default": true,
+						"description": "Specifies whether to enable all modules"
+					},
+					"sysStatsBar.refreshInterval": {
+						"type": "number",
+						"default": 1800,
+						"description": "Specifies the refresh interval time (ms) to update all modules",
+						"minimum": 1000
+					},
+					"sysStatsBar.cpuLoad.enabled": {
+						"type": "boolean",
+						"default": true,
+						"description": "Specifies whether to enable cpu load"
+					},
+					"sysStatsBar.networkSpeed.enabled": {
+						"type": "boolean",
+						"default": true,
+						"description": "Specifies whether to enable network speed"
+					},
+					"sysStatsBar.loadavg.enabled": {
+						"type": "boolean",
+						"default": true,
+						"description": "Specifies whether to enable loadavg"
+					}
+				}
+			}
+		],
 		"commands": [
 			{
-				"command": "statbar.helloWorld",
-				"title": "Hello World"
+				"command": "SysStatsBar.CopyIp",
+				"title": "SysStatsBar: Copy IP"
+			},
+			{
+				"command": "SysStatsBar.EnableAll",
+				"title": "SysStatsBar: Enable All"
+			},
+			{
+				"command": "SysStatsBar.DisableAll",
+				"title": "SysStatsBar: Disable All"
+			},
+			{
+				"command": "SysStatsBar.EnableCpuLoad",
+				"title": "SysStatsBar: Enable Cpu Load"
+			},
+			{
+				"command": "SysStatsBar.EnableNetworkSpeed",
+				"title": "SysStatsBar: Enable Network Speed"
+			},
+			{
+				"command": "SysStatsBar.EnableLoadavg",
+				"title": "SysStatsBar: Enable Loadavg"
+			},
+			{
+				"command": "SysStatsBar.DisableCpuLoad",
+				"title": "SysStatsBar: Disable Cpu Load"
+			},
+			{
+				"command": "SysStatsBar.DisableNetworkSpeed",
+				"title": "SysStatsBar: Disable Network Speed"
+			},
+			{
+				"command": "SysStatsBar.DisableLoadavg",
+				"title": "SysStatsBar: Disable Loadavg"
 			}
-		]
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "SysStatsBar.EnableAll",
+					"when": "!config.sysStatsBar.enabled"
+				},
+				{
+					"command": "SysStatsBar.EnableCpuLoad",
+					"when": "!config.sysStatsBar.cpuLoad.enabled"
+				},
+				{
+					"command": "SysStatsBar.EnableNetworkSpeed",
+					"when": "!config.sysStatsBar.networkSpeed.enabled"
+				},
+				{
+					"command": "SysStatsBar.EnableLoadavg",
+					"when": "!config.sysStatsBar.loadavg.enabled"
+				},
+				{
+					"command": "SysStatsBar.DisableAll",
+					"when": "config.sysStatsBar.enabled"
+				},
+				{
+					"command": "SysStatsBar.DisableCpuLoad",
+					"when": "config.sysStatsBar.cpuLoad.enabled"
+				},
+				{
+					"command": "SysStatsBar.DisableNetworkSpeed",
+					"when": "config.sysStatsBar.networkSpeed.enabled"
+				},
+				{
+					"command": "SysStatsBar.DisableLoadavg",
+					"when": "config.sysStatsBar.loadavg.enabled"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
