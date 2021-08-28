@@ -1,5 +1,5 @@
-import * as si from "systeminformation";
-import * as os from "os";
+import * as si from 'systeminformation';
+import * as os from 'os';
 
 export async function getCpuSpeed() {
   try {
@@ -25,7 +25,7 @@ export async function getLoadavg() {
 export async function getIP() {
   const defaultInterface = await si.networkInterfaceDefault();
   const res = await si.networkInterfaces();
-  const cur = res.find((item) => item.iface === defaultInterface);
+  const cur = res.find(item => item.iface === defaultInterface);
   return cur?.ip4;
 }
 
@@ -36,7 +36,7 @@ export async function getNetworkSpeed() {
     const cur = res[0];
     return {
       up: cur.tx_sec,
-      down: cur.rx_sec,
+      down: cur.rx_sec
     };
   } catch (err) {}
 }
@@ -57,7 +57,7 @@ export async function getMemoryUsage() {
       active: res.active,
       swapTotal: res.swaptotal,
       swapUsed: res.swapused,
-      swapFree: res.swapfree,
+      swapFree: res.swapfree
     };
   } catch (err) {}
 }
@@ -67,7 +67,7 @@ export const sysinfoData = {
   loadavg: getLoadavg,
   networkSpeed: getNetworkSpeed,
   memoUsage: getMemoryUsage,
-  uptime: getUpTime,
+  uptime: getUpTime
 };
 
 export type SysinfoData = typeof sysinfoData;

@@ -1,7 +1,7 @@
-import { ExtensionContext, commands, window, env, ConfigurationTarget } from "vscode";
-import { Commands, ConfigurationKeys } from "./types";
-import { setting } from "./setting";
-import { getIP } from "./sysinfo";
+import { ExtensionContext, commands, window, env, ConfigurationTarget } from 'vscode';
+import { Commands, ConfigurationKeys } from './types';
+import { setting } from './setting';
+import { getIP } from './sysinfo';
 
 class Command {
   init(context: ExtensionContext) {

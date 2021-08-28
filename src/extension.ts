@@ -1,7 +1,7 @@
-import { ExtensionContext } from "vscode";
-import { setting } from "./setting";
-import { statsBar } from "./statsBar";
-import { command } from "./command";
+import { ExtensionContext } from 'vscode';
+import { setting } from './setting';
+import { statsBar } from './statsBar';
+import { command } from './command';
 
 export function activate(context: ExtensionContext) {
   setting.init(context);

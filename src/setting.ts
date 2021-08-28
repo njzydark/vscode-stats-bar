@@ -1,12 +1,12 @@
-import { ConfigurationChangeEvent, ExtensionContext, workspace, WorkspaceConfiguration } from "vscode";
-import { extensionEmitter } from "./eventEmitter";
+import { ConfigurationChangeEvent, ExtensionContext, workspace, WorkspaceConfiguration } from 'vscode';
+import { extensionEmitter } from './eventEmitter';
 
-const configPrefix = "statsBar";
+const configPrefix = 'statsBar';
 
 class Setting {
   cfg: WorkspaceConfiguration | null = null;
   default = {
-    refreshInterval: 1800,
+    refreshInterval: 1800
   };
 
   init(context: ExtensionContext) {
@@ -21,7 +21,7 @@ class Setting {
 
     this.cfg = workspace.getConfiguration(configPrefix);
 
-    extensionEmitter.emit("setting-update");
+    extensionEmitter.emit('setting-update');
   }
 }
 
