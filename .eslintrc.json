@@ -5,16 +5,23 @@
         "ecmaVersion": 6,
         "sourceType": "module"
     },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
     "plugins": [
         "@typescript-eslint"
     ],
     "rules": {
         "@typescript-eslint/naming-convention": "warn",
         "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
         "curly": "warn",
         "eqeqeq": "warn",
         "no-throw-literal": "warn",
-        "semi": "off"
+        "semi": "off",
+        "no-empty": "off"
     },
     "ignorePatterns": [
         "out",
