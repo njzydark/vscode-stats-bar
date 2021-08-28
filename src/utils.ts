@@ -55,7 +55,7 @@ export function formatTimes(data: number) {
 
 export function formatByDict<T extends { [prop: string]: any }>(raw = '', dict: T): string {
   let res = raw;
-  raw.match(/\$\{[^\}]*\}/g)?.forEach(item => {
+  raw.match(/\$\{[^{}]*\}/g)?.forEach(item => {
     const key = item.replace(/(\$\{)|(\})/g, '');
     if (key in dict) {
       res = res.replace(item, dict[key]);
