@@ -26,7 +26,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableAll,
       () => {
-        setting.cfg?.update(ConfigurationKeys.AllEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.AllEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -34,7 +34,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableAll,
       () => {
-        setting.cfg?.update(ConfigurationKeys.AllEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.AllEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
@@ -42,7 +42,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableCpuLoad,
       () => {
-        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -50,7 +50,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableCpuLoad,
       () => {
-        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
@@ -58,7 +58,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableLoadavg,
       () => {
-        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -66,7 +66,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableLoadavg,
       () => {
-        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
@@ -74,7 +74,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableNetworkSpeed,
       () => {
-        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -82,7 +82,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableNetworkSpeed,
       () => {
-        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
@@ -90,7 +90,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableMemoUsage,
       () => {
-        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -98,7 +98,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableMemoUsage,
       () => {
-        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
@@ -106,7 +106,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableUptime,
       () => {
-        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, true, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, true, ConfigurationTarget.Global);
       },
       this
     );
@@ -114,7 +114,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableUptime,
       () => {
-        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, false, ConfigurationTarget.Workspace);
+        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, false, ConfigurationTarget.Global);
       },
       this
     );
