@@ -18,10 +18,15 @@ export enum Commands {
 export enum ConfigurationKeys {
   AllEnabled = "enabled",
   CpuLoadEnabled = "cpuLoad.enabled",
+  CpuLoadFormat = "cpuLoad.format",
   LoadavgEnabled = "loadavg.enabled",
+  LoadavgFormat = "loadavg.format",
   NetworkSpeedEnabled = "networkSpeed.enabled",
+  NetworkSpeedFormat = "networkSpeed.format",
   MemoUsageEnabled = "memoUsage.enabled",
+  MemoUsageFormat = "memoUsage.format",
   UptimeEnabled = "uptime.enabled",
+  UptimeFormat = "uptime.format",
   RefreshInterval = "refreshInterval",
   Location = "location",
 }

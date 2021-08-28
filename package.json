@@ -57,25 +57,50 @@
             "default": true,
             "description": "Specifies whether to enable cpu load"
           },
+          "statsBar.cpuLoad.format": {
+            "type": "string",
+            "default": "$(pulse) ${percent}%",
+            "markdownDescription": "You can use these variables to custom display format: `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
+          },
           "statsBar.loadavg.enabled": {
             "type": "boolean",
             "default": false,
             "description": "Specifies whether to enable loadavg"
+          },
+          "statsBar.loadavg.format": {
+            "type": "string",
+            "default": "${1}, ${5}, ${15}",
+            "markdownDescription": "You can use these variables to custom display format: `${1}` `${5}` `${15}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.networkSpeed.enabled": {
             "type": "boolean",
             "default": true,
             "description": "Specifies whether to enable network speed"
           },
+          "statsBar.networkSpeed.format": {
+            "type": "string",
+            "default": "$(arrow-up) ${up} ${up-unit} $(arrow-down) ${down} ${down-unit}",
+            "markdownDescription": "You can use these variables to custom display format: `${up}` `${up-unit}` `${down}` `${down-unit}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
+          },
           "statsBar.memoUsage.enabled": {
             "type": "boolean",
             "default": true,
             "description": "Specifies whether to enable memory usage"
           },
+          "statsBar.memoUsage.format": {
+            "type": "string",
+            "default": "$(database) ${used}/${total} ${unit}, ${percent}%",
+            "markdownDescription": "You can use these variables to custom display format: `${used}` `${total}` `${unit}` `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
+          },
           "statsBar.uptime.enabled": {
             "type": "boolean",
             "default": false,
             "description": "Specifies whether to enable uptime"
+          },
+          "statsBar.uptime.format": {
+            "type": "string",
+            "default": "${days}d, ${hours}h, ${minutes}m",
+            "markdownDescription": "You can use these variables to custom display format: `${days}` `${hours}` `${minutes}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           }
         }
       }

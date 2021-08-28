@@ -2,7 +2,7 @@ import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from "vsc
 import { ConfigurationKeys } from "./types";
 import { sysinfoData, SysinfoData, StatsModules } from "./sysinfo";
 import { setting } from "./setting";
-import { formatBytes, formatTimes } from "./utils";
+import { formatBytes, formatTimes, formatByDict } from "./utils";
 
 type Await<T extends () => unknown> = T extends () => PromiseLike<infer U> ? U : ReturnType<T>;
 
@@ -67,7 +67,7 @@ class StatsBar {
   private async getSysInfo() {
     const promises = this.modules.map(async (module) => {
       const res = await sysinfoData[module]();
-      return this.formatRes(module, res);
+      return this.formatRes(module, res) || "-";
     });
     const res = await Promise.all(promises);
     res.forEach((data, index) => {
@@ -80,38 +80,70 @@ class StatsBar {
   private formatRes(module: StatsModules, rawRes: unknown) {
     if (module === "cpuLoad") {
       let res = rawRes as Await<SysinfoData["cpuLoad"]>;
-      return res ? `${res.toFixed(0)}%` : "-";
+      if (res) {
+        const dict = {
+          percent: res.toFixed(0),
+        };
+        return formatByDict(setting.cfg?.get(ConfigurationKeys.CpuLoadFormat), dict);
+      }
     } else if (module === "loadavg") {
       let res = rawRes as Await<SysinfoData["loadavg"]>;
-      return res ? `${res.map((item) => item.toFixed(2)).join(", ")}` : "-";
+      if (res) {
+        const dict = {
+          "1": res[0]?.toFixed(2) || 0,
+          "5": res[1]?.toFixed(2) || 0,
+          "15": res[2]?.toFixed(2) || 0,
+        };
+        return formatByDict(setting.cfg?.get(ConfigurationKeys.LoadavgFormat), dict);
+      }
     } else if (module === "memoUsage") {
       let res = rawRes as Await<SysinfoData["memoUsage"]>;
       if (res) {
-        const used = formatBytes(res.active, 2);
-        const toal = formatBytes(res.total, 2);
-        return `M: ${used.data}/${toal.data} ${toal.unit}`;
-      } else {
-        return "-";
+        const customSize = 1024 * 1024 * 1024;
+        const used = formatBytes(res.active, 2, customSize);
+        const total = formatBytes(res.total, 2, customSize);
+        const percent = ((Number(used.data) / Number(total.data)) * 100).toFixed(0);
+
+        const dict = {
+          used: used.data,
+          total: total.data,
+          unit: "GB",
+          percent,
+        };
+
+        return formatByDict(setting.cfg?.get(ConfigurationKeys.MemoUsageFormat), dict);
       }
     } else if (module === "networkSpeed") {
       let res = rawRes as Await<SysinfoData["networkSpeed"]>;
       if (res) {
         const up = formatBytes(res.up);
         const down = formatBytes(res.down);
-        return `U: ${up.data} ${up.unit}/s - D: ${down.data} ${down.unit}/s`;
-      } else {
-        return "-";
+
+        const dict = {
+          up: up.data,
+          "up-unit": up.unit + "/s",
+          down: down.data,
+          "down-unit": down.unit + "/s",
+        };
+
+        return formatByDict(setting.cfg?.get(ConfigurationKeys.NetworkSpeedFormat), dict);
       }
     } else if (module === "uptime") {
       let res = rawRes as Await<SysinfoData["uptime"]>;
       if (res) {
         const data = formatTimes(res);
-        return data.map((item) => `${item.data}${item.unit}`).join(", ");
-      } else {
-        return "-";
+
+        const dict = {
+          days: data[0],
+          hours: data[1],
+          minutes: data[2],
+        };
+
+        return formatByDict(setting.cfg?.get(ConfigurationKeys.UptimeFormat), dict);
       }
+    } else {
+      return "";
     }
-    return "-";
   }
 
   onSettingUpdate() {
