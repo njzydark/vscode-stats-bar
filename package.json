@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"

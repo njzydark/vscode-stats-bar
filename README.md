@@ -7,9 +7,8 @@
 
 A vscode extension to show system stats in status bar
 
-<img width="1136" alt="Xnip2021-08-27_10-49-32" src="https://user-images.githubusercontent.com/19601720/131064216-3da71ba3-234e-476f-a1cf-39ebcc8906a8.png">
-
-<img width="1136" alt="Xnip2021-08-27_10-51-33" src="https://user-images.githubusercontent.com/19601720/131064382-4edb297e-fc65-49f3-9238-0adfd403d969.png">
+<img width="1136" alt="Xnip2021-08-28_19-30-23" src="https://user-images.githubusercontent.com/19601720/131216513-6e0d5619-4767-40aa-8c2d-782ee732d987.png">
+<img width="1136" alt="Xnip2021-08-28_19-29-25" src="https://user-images.githubusercontent.com/19601720/131216521-92007920-daba-48db-873d-9410177ddf0e.png">
 
 ## Features
 
