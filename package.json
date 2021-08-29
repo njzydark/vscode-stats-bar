@@ -73,6 +73,11 @@
             "description": "Specifies the refresh interval time (ms) to update all modules",
             "minimum": 1000
           },
+          "statsBar.priority": {
+            "type": "number",
+            "default": -1,
+            "description": "The priority of the stats bar. Higher value means the stats bar should be shown more to the left"
+          },
           "statsBar.cpuLoad.format": {
             "type": "string",
             "default": "$(pulse) ${percent}%",

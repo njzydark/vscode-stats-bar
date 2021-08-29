@@ -16,7 +16,8 @@ class Setting {
   allModules = AllSysModules;
   default = {
     modules: ['cpuLoad', 'networkSpeed', 'memoUsage'] as StatsModule[],
-    refreshInterval: 1800
+    refreshInterval: 1800,
+    priority: -1
   };
 
   init(context: ExtensionContext) {

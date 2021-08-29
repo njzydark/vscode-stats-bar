@@ -30,7 +30,8 @@ class StatsBar {
       return;
     }
     const location = (setting?.cfg?.get(ConfigurationKeys.Location) || 'Left') as StatusBarAlignment;
-    this.statusItems = curModules.map(() => window.createStatusBarItem(StatusBarAlignment[location]));
+    const priority: number = setting?.cfg?.get(ConfigurationKeys.Priority) || setting.default.priority;
+    this.statusItems = curModules.map(() => window.createStatusBarItem(StatusBarAlignment[location], priority));
     this._context.subscriptions.push(...this.statusItems);
     this.update();
   }

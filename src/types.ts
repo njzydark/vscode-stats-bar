@@ -16,13 +16,14 @@ export enum Commands {
 }
 
 export enum ConfigurationKeys {
+  RefreshInterval = 'refreshInterval',
+  Location = 'location',
+  Priority = 'priority',
+  Modules = 'modules',
   AllEnabled = 'enabled',
   CpuLoadFormat = 'cpuLoad.format',
   LoadavgFormat = 'loadavg.format',
   NetworkSpeedFormat = 'networkSpeed.format',
   MemoUsageFormat = 'memoUsage.format',
-  UptimeFormat = 'uptime.format',
-  RefreshInterval = 'refreshInterval',
-  Location = 'location',
-  Modules = 'modules'
+  UptimeFormat = 'uptime.format'
 }
