@@ -13,7 +13,7 @@ A vscode extension to show system stats in status bar
 ## Features
 
 - Support show cpu load, loadavg, network speed, memory usage and uptime
-- Support custom display format
+- Support custom display format, order and priority
 - Support copy ip to clipboard
 - Support change loacation and refresh interval
 

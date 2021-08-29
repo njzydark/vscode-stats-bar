@@ -2,13 +2,19 @@
 
 All notable changes to the stats bar extension will be documented in this file.
 
-## [0.3.0] - 2021-08-29
+## [0.4.0] - 2021-08-29
+
+### Added
+
+- Support custom display order and priority
+
+## [0.3.0] - 2021-08-28
 
 ### Added
 
 - Support custom display format
 
-## [0.2.0] - 2021-08-28
+## [0.2.0] - 2021-08-27
 
 ### Added
 
@@ -18,7 +24,7 @@ All notable changes to the stats bar extension will be documented in this file.
 
 - Separate configurations for different workspaces
 
-## [0.1.0] - 2021-08-28
+## [0.1.0] - 2021-08-27
 
 ### Added
 
