@@ -46,56 +46,52 @@
               "Right-aligned in the status bar"
             ]
           },
+          "statsBar.modules": {
+            "type": "array",
+            "default": [
+              "cpuLoad",
+              "networkSpeed",
+              "memoUsage"
+            ],
+            "minItems": 0,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "enum": [
+                "cpuLoad",
+                "loadavg",
+                "networkSpeed",
+                "memoUsage",
+                "uptime"
+              ]
+            },
+            "markdownDescription": "Control the modules to be enabled and the display order"
+          },
           "statsBar.refreshInterval": {
             "type": "number",
             "default": 1800,
             "description": "Specifies the refresh interval time (ms) to update all modules",
             "minimum": 1000
           },
-          "statsBar.cpuLoad.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Specifies whether to enable cpu load"
-          },
           "statsBar.cpuLoad.format": {
             "type": "string",
             "default": "$(pulse) ${percent}%",
             "markdownDescription": "You can use these variables to custom display format: `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
-          },
-          "statsBar.loadavg.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Specifies whether to enable loadavg"
           },
           "statsBar.loadavg.format": {
             "type": "string",
             "default": "${1}, ${5}, ${15}",
             "markdownDescription": "You can use these variables to custom display format: `${1}` `${5}` `${15}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
-          "statsBar.networkSpeed.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Specifies whether to enable network speed"
-          },
           "statsBar.networkSpeed.format": {
             "type": "string",
             "default": "$(arrow-up) ${up} ${up-unit} $(arrow-down) ${down} ${down-unit}",
             "markdownDescription": "You can use these variables to custom display format: `${up}` `${up-unit}` `${down}` `${down-unit}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
-          "statsBar.memoUsage.enabled": {
-            "type": "boolean",
-            "default": true,
-            "description": "Specifies whether to enable memory usage"
-          },
           "statsBar.memoUsage.format": {
             "type": "string",
             "default": "$(database) ${used}/${total} ${unit}, ${percent}%",
             "markdownDescription": "You can use these variables to custom display format: `${used}` `${total}` `${unit}` `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
-          },
-          "statsBar.uptime.enabled": {
-            "type": "boolean",
-            "default": false,
-            "description": "Specifies whether to enable uptime"
           },
           "statsBar.uptime.format": {
             "type": "string",
@@ -171,43 +167,43 @@
         },
         {
           "command": "StatsBar.EnableCpuLoad",
-          "when": "!config.statsBar.cpuLoad.enabled"
+          "when": "!statsBar.cpuLoad"
         },
         {
           "command": "StatsBar.DisableCpuLoad",
-          "when": "config.statsBar.cpuLoad.enabled"
+          "when": "statsBar.cpuLoad"
         },
         {
           "command": "StatsBar.EnableNetworkSpeed",
-          "when": "!config.statsBar.networkSpeed.enabled"
+          "when": "!statsBar.networkSpeed"
         },
         {
           "command": "StatsBar.DisableNetworkSpeed",
-          "when": "config.statsBar.networkSpeed.enabled"
+          "when": "statsBar.networkSpeed"
         },
         {
           "command": "StatsBar.EnableLoadavg",
-          "when": "!config.statsBar.loadavg.enabled"
+          "when": "!statsBar.loadavg"
         },
         {
           "command": "StatsBar.DisableLoadavg",
-          "when": "config.statsBar.loadavg.enabled"
+          "when": "statsBar.loadavg"
         },
         {
           "command": "StatsBar.EnableMemoUsage",
-          "when": "!config.statsBar.memoUsage.enabled"
+          "when": "!statsBar.memoUsage"
         },
         {
           "command": "StatsBar.DisableMemoUsage",
-          "when": "config.statsBar.memoUsage.enabled"
+          "when": "statsBar.memoUsage"
         },
         {
           "command": "StatsBar.EnableUptime",
-          "when": "!config.statsBar.uptime.enabled"
+          "when": "!statsBar.uptime"
         },
         {
           "command": "StatsBar.DisableUptime",
-          "when": "config.statsBar.uptime.enabled"
+          "when": "statsBar.uptime"
         }
       ]
     }

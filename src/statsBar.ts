@@ -1,14 +1,12 @@
 import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from 'vscode';
 import { ConfigurationKeys } from './types';
-import { sysinfoData, SysinfoData, StatsModules } from './sysinfo';
+import { sysinfoData, SysinfoData, StatsModule } from './sysinfo';
 import { setting } from './setting';
 import { formatBytes, formatTimes, formatByDict } from './utils';
 
 type Await<T extends () => unknown> = T extends () => PromiseLike<infer U> ? U : ReturnType<T>;
 
 class StatsBar {
-  defaultModules: StatsModules[] = ['cpuLoad', 'loadavg', 'networkSpeed', 'memoUsage', 'uptime'];
-  modules: StatsModules[] = [];
   statusItems: StatusBarItem[] = [];
   timer: NodeJS.Timeout | null = null;
   _context: ExtensionContext | null = null;
@@ -27,34 +25,14 @@ class StatsBar {
         statusItem.dispose();
       });
     }
-    if (!setting?.cfg?.get(ConfigurationKeys.AllEnabled)) {
+    const curModules = setting.curModules;
+    if (!setting?.cfg?.get(ConfigurationKeys.AllEnabled) || curModules.length === 0) {
       return;
     }
     const location = (setting?.cfg?.get(ConfigurationKeys.Location) || 'Left') as StatusBarAlignment;
-    this.modules = this.getModules();
-    this.statusItems = this.modules.map(() => window.createStatusBarItem(StatusBarAlignment[location]));
+    this.statusItems = curModules.map(() => window.createStatusBarItem(StatusBarAlignment[location]));
     this._context.subscriptions.push(...this.statusItems);
     this.update();
-  }
-
-  private getModules() {
-    return this.defaultModules.filter(module => {
-      if (!setting.cfg) {
-        return true;
-      } else if (module === 'cpuLoad' && setting.cfg.get(ConfigurationKeys.CpuLoadEnabled)) {
-        return true;
-      } else if (module === 'loadavg' && setting.cfg.get(ConfigurationKeys.LoadavgEnabled)) {
-        return true;
-      } else if (module === 'networkSpeed' && setting.cfg.get(ConfigurationKeys.NetworkSpeedEnabled)) {
-        return true;
-      } else if (module === 'memoUsage' && setting.cfg.get(ConfigurationKeys.MemoUsageEnabled)) {
-        return true;
-      } else if (module === 'uptime' && setting.cfg.get(ConfigurationKeys.UptimeEnabled)) {
-        return true;
-      } else {
-        return false;
-      }
-    });
   }
 
   private async update() {
@@ -65,7 +43,7 @@ class StatsBar {
   }
 
   private async getSysInfo() {
-    const promises = this.modules.map(async module => {
+    const promises = setting.curModules.map(async module => {
       const res = await sysinfoData[module]();
       return this.formatRes(module, res) || '-';
     });
@@ -77,7 +55,7 @@ class StatsBar {
     });
   }
 
-  private formatRes(module: StatsModules, rawRes: unknown) {
+  private formatRes(module: StatsModule, rawRes: unknown) {
     if (module === 'cpuLoad') {
       const res = rawRes as Await<SysinfoData['cpuLoad']>;
       if (res) {

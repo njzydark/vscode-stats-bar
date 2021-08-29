@@ -5,6 +5,18 @@ import { getIP } from './sysinfo';
 
 class Command {
   init(context: ExtensionContext) {
+    this.registerCommand();
+    this.changeContext();
+  }
+
+  changeContext() {
+    const modules = setting.curModules;
+    setting.allModules.forEach(moduleName => {
+      commands.executeCommand('setContext', `statsBar.${moduleName}`, modules.includes(moduleName));
+    });
+  }
+
+  registerCommand() {
     commands.registerCommand(
       Commands.CopyIp,
       async () => {
@@ -42,7 +54,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableCpuLoad,
       () => {
-        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, true, ConfigurationTarget.Global);
+        setting.enableModule('cpuLoad');
       },
       this
     );
@@ -50,7 +62,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableCpuLoad,
       () => {
-        setting.cfg?.update(ConfigurationKeys.CpuLoadEnabled, false, ConfigurationTarget.Global);
+        setting.disableModule('cpuLoad');
       },
       this
     );
@@ -58,7 +70,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableLoadavg,
       () => {
-        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, true, ConfigurationTarget.Global);
+        setting.enableModule('loadavg');
       },
       this
     );
@@ -66,7 +78,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableLoadavg,
       () => {
-        setting.cfg?.update(ConfigurationKeys.LoadavgEnabled, false, ConfigurationTarget.Global);
+        setting.disableModule('loadavg');
       },
       this
     );
@@ -74,7 +86,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableNetworkSpeed,
       () => {
-        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, true, ConfigurationTarget.Global);
+        setting.enableModule('networkSpeed');
       },
       this
     );
@@ -82,7 +94,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableNetworkSpeed,
       () => {
-        setting.cfg?.update(ConfigurationKeys.NetworkSpeedEnabled, false, ConfigurationTarget.Global);
+        setting.disableModule('networkSpeed');
       },
       this
     );
@@ -90,7 +102,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableMemoUsage,
       () => {
-        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, true, ConfigurationTarget.Global);
+        setting.enableModule('memoUsage');
       },
       this
     );
@@ -98,7 +110,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableMemoUsage,
       () => {
-        setting.cfg?.update(ConfigurationKeys.MemoUsageEnabled, false, ConfigurationTarget.Global);
+        setting.disableModule('memoUsage');
       },
       this
     );
@@ -106,7 +118,7 @@ class Command {
     commands.registerCommand(
       Commands.EnableUptime,
       () => {
-        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, true, ConfigurationTarget.Global);
+        setting.enableModule('uptime');
       },
       this
     );
@@ -114,7 +126,7 @@ class Command {
     commands.registerCommand(
       Commands.DisableUptime,
       () => {
-        setting.cfg?.update(ConfigurationKeys.UptimeEnabled, false, ConfigurationTarget.Global);
+        setting.disableModule('uptime');
       },
       this
     );

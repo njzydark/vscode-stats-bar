@@ -70,6 +70,9 @@ export const sysinfoData = {
   uptime: getUpTime
 };
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const AllSysModules = Object.keys(sysinfoData) as StatsModule[];
+
 export type SysinfoData = typeof sysinfoData;
 
-export type StatsModules = keyof typeof sysinfoData;
+export type StatsModule = keyof typeof sysinfoData;
