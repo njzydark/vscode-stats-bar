@@ -2,6 +2,12 @@
 
 All notable changes to the stats bar extension will be documented in this file.
 
+## [0.4.1] - 2021-08-29
+
+### Changed
+
+- Adjust the order configuration and help description in the settings
+
 ## [0.4.0] - 2021-08-29
 
 ### Added

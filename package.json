@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"
@@ -55,6 +55,7 @@
             ],
             "minItems": 0,
             "maxItems": 5,
+            "uniqueItems": true,
             "items": {
               "type": "string",
               "enum": [
@@ -65,7 +66,7 @@
                 "uptime"
               ]
             },
-            "markdownDescription": "Control the modules to be enabled and the display order"
+            "markdownDescription": "Control the modules to be enabled and the display order (You can drag the item to control the order)"
           },
           "statsBar.refreshInterval": {
             "type": "number",
