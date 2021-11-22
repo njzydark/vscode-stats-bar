@@ -53,6 +53,7 @@ You can use `$(icon-name)` to show icon, visit this site [https://microsoft.gith
 - ${used}
 - ${total}
 - ${percent}
+- ${pressurePercent}
 - ${unit}
 
 ## Thanks

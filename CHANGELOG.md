@@ -2,6 +2,17 @@
 
 All notable changes to the stats bar extension will be documented in this file.
 
+## [0.5.0] - 2021-11-22
+
+### Added
+
+- Support use `${pressurePercent}` to show memory pressure (only for macOS)
+- Add tooltip to status item
+
+### Fixed
+
+- Memory usage is inaccurately displayed on Apple Silicon [#2](https://github.com/njzydark/vscode-stats-bar/issues/2)
+
 ## [0.4.1] - 2021-08-29
 
 ### Changed
