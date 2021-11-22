@@ -29,7 +29,9 @@ class Command {
             window.showInformationMessage(`Not found IP`);
           }
         } catch (err) {
-          window.showErrorMessage(`IP get error: ${err.message}`);
+          if (err instanceof Error) {
+            window.showErrorMessage(`IP get error: ${err.message}`);
+          }
         }
       },
       this

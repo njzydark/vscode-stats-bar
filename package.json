@@ -97,7 +97,7 @@
           "statsBar.memoUsage.format": {
             "type": "string",
             "default": "$(database) ${used}/${total} ${unit}, ${percent}%",
-            "markdownDescription": "You can use these variables to custom display format: `${used}` `${total}` `${unit}` `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
+            "markdownDescription": "You can use these variables to custom display format: `${used}` `${total}` `${unit}` `${percent}` `${pressurePercent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.uptime.format": {
             "type": "string",

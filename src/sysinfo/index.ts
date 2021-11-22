@@ -1,5 +1,8 @@
 import * as si from 'systeminformation';
 import * as os from 'os';
+import { getMacOsMemoryUsageInfo } from './memory';
+
+export const isDarwin = os.platform() === 'darwin';
 
 export async function getCpuSpeed() {
   try {
@@ -49,16 +52,23 @@ export async function getUpTime() {
 
 export async function getMemoryUsage() {
   try {
-    const res = await si.mem();
-    return {
-      total: res.total,
-      free: res.free,
-      used: res.used,
-      active: res.active,
-      swapTotal: res.swaptotal,
-      swapUsed: res.swapused,
-      swapFree: res.swapfree
-    };
+    if (isDarwin) {
+      const res = await getMacOsMemoryUsageInfo();
+      return {
+        total: res.total,
+        used: res.used,
+        active: res.active,
+        pressurePercent: res.pressurePercent,
+        usagePercent: res.usagePercent
+      };
+    } else {
+      const res = await si.mem();
+      return {
+        total: res.total,
+        used: res.used,
+        active: res.active
+      };
+    }
   } catch (err) {}
 }
 

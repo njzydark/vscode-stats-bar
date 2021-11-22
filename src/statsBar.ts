@@ -1,6 +1,6 @@
 import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from 'vscode';
 import { ConfigurationKeys } from './types';
-import { sysinfoData, SysinfoData, StatsModule } from './sysinfo';
+import { sysinfoData, SysinfoData, StatsModule, isDarwin } from './sysinfo';
 import { setting } from './setting';
 import { formatBytes, formatTimes, formatByDict } from './utils';
 
@@ -79,15 +79,17 @@ class StatsBar {
       const res = rawRes as Await<SysinfoData['memoUsage']>;
       if (res) {
         const customSize = 1024 * 1024 * 1024;
-        const used = formatBytes(res.active, 2, customSize);
+        const used = formatBytes(isDarwin ? res.used : res.active, 2, customSize);
         const total = formatBytes(res.total, 2, customSize);
         const percent = ((Number(used.data) / Number(total.data)) * 100).toFixed(0);
+        const pressurePercent = Number((res.pressurePercent || 0) * 100).toFixed(0);
 
         const dict = {
           used: used.data,
           total: total.data,
           unit: 'GB',
-          percent
+          percent,
+          pressurePercent
         };
 
         return formatByDict(setting.cfg?.get(ConfigurationKeys.MemoUsageFormat), dict);
