@@ -86,3 +86,12 @@ export const AllSysModules = Object.keys(sysinfoData) as StatsModule[];
 export type SysinfoData = typeof sysinfoData;
 
 export type StatsModule = keyof typeof sysinfoData;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const StatsModuleNameMap: { [key in StatsModule]: string } = {
+  cpuLoad: 'CpuLoad',
+  loadavg: 'Loadavg',
+  networkSpeed: 'NetworkSpeed',
+  memoUsage: 'MemoryUsage',
+  uptime: 'Uptime'
+};

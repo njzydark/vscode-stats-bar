@@ -1,6 +1,6 @@
 import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from 'vscode';
 import { ConfigurationKeys } from './types';
-import { sysinfoData, SysinfoData, StatsModule, isDarwin } from './sysinfo';
+import { sysinfoData, SysinfoData, StatsModule, isDarwin, StatsModuleNameMap } from './sysinfo';
 import { setting } from './setting';
 import { formatBytes, formatTimes, formatByDict } from './utils';
 
@@ -51,19 +51,25 @@ class StatsBar {
     const res = await Promise.all(promises);
     res.forEach((data, index) => {
       const curStatusItem = this.statusItems[index];
-      curStatusItem.text = data || '-';
+      curStatusItem.text = data.text;
+      curStatusItem.tooltip = data.tooltip || StatsModuleNameMap[data.module];
       curStatusItem.show();
     });
   }
 
   private formatRes(module: StatsModule, rawRes: unknown) {
+    const formatedData = {
+      module,
+      text: '-',
+      tooltip: ''
+    };
     if (module === 'cpuLoad') {
       const res = rawRes as Await<SysinfoData['cpuLoad']>;
       if (res) {
         const dict = {
           percent: res.toFixed(0)
         };
-        return formatByDict(setting.cfg?.get(ConfigurationKeys.CpuLoadFormat), dict);
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.CpuLoadFormat), dict);
       }
     } else if (module === 'loadavg') {
       const res = rawRes as Await<SysinfoData['loadavg']>;
@@ -73,7 +79,7 @@ class StatsBar {
           '5': res[1]?.toFixed(2) || 0,
           '15': res[2]?.toFixed(2) || 0
         };
-        return formatByDict(setting.cfg?.get(ConfigurationKeys.LoadavgFormat), dict);
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.LoadavgFormat), dict);
       }
     } else if (module === 'memoUsage') {
       const res = rawRes as Await<SysinfoData['memoUsage']>;
@@ -92,7 +98,7 @@ class StatsBar {
           pressurePercent
         };
 
-        return formatByDict(setting.cfg?.get(ConfigurationKeys.MemoUsageFormat), dict);
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.MemoUsageFormat), dict);
       }
     } else if (module === 'networkSpeed') {
       const res = rawRes as Await<SysinfoData['networkSpeed']>;
@@ -107,7 +113,7 @@ class StatsBar {
           'down-unit': down.unit + '/s'
         };
 
-        return formatByDict(setting.cfg?.get(ConfigurationKeys.NetworkSpeedFormat), dict);
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.NetworkSpeedFormat), dict);
       }
     } else if (module === 'uptime') {
       const res = rawRes as Await<SysinfoData['uptime']>;
@@ -120,11 +126,10 @@ class StatsBar {
           minutes: data[2]
         };
 
-        return formatByDict(setting.cfg?.get(ConfigurationKeys.UptimeFormat), dict);
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.UptimeFormat), dict);
       }
-    } else {
-      return '';
     }
+    return formatedData;
   }
 
   onSettingUpdate() {
