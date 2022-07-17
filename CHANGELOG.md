@@ -2,6 +2,16 @@
 
 All notable changes to the stats bar extension will be documented in this file.
 
+## [0.5.1] - 2022-07-17
+
+### Added
+
+- Update dependency [systeminformation](https://github.com/sebhildebrandt/systeminformation/blob/master/CHANGELOG.md) to latest version(from 5.8.0 to 5.12.1)
+
+### Fixed
+
+- Fix the problem that adjusting the configuration of local machine will affect the configuration of remote machine
+
 ## [0.5.0] - 2021-11-22
 
 ### Added

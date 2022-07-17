@@ -62,5 +62,5 @@ export function formatByDict<T extends { [prop: string]: any }>(raw = '', dict: 
     }
   });
 
-  return res;
+  return res.trim();
 }

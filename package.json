@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"
@@ -31,11 +31,13 @@
         "properties": {
           "statsBar.enabled": {
             "type": "boolean",
+            "scope": "machine-overridable",
             "default": true,
             "description": "Specifies whether to enable all modules"
           },
           "statsBar.location": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "Left",
             "enum": [
               "Left",
@@ -48,6 +50,7 @@
           },
           "statsBar.modules": {
             "type": "array",
+            "scope": "machine-overridable",
             "default": [
               "cpuLoad",
               "networkSpeed",
@@ -70,37 +73,44 @@
           },
           "statsBar.refreshInterval": {
             "type": "number",
+            "scope": "machine-overridable",
             "default": 1800,
             "description": "Specifies the refresh interval time (ms) to update all modules",
             "minimum": 1000
           },
           "statsBar.priority": {
             "type": "number",
+            "scope": "machine-overridable",
             "default": -1,
             "description": "The priority of the stats bar. Higher value means the stats bar should be shown more to the left"
           },
           "statsBar.cpuLoad.format": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "$(pulse) ${percent}%",
             "markdownDescription": "You can use these variables to custom display format: `${percent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.loadavg.format": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "${1}, ${5}, ${15}",
             "markdownDescription": "You can use these variables to custom display format: `${1}` `${5}` `${15}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.networkSpeed.format": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "$(arrow-up) ${up} ${up-unit} $(arrow-down) ${down} ${down-unit}",
             "markdownDescription": "You can use these variables to custom display format: `${up}` `${up-unit}` `${down}` `${down-unit}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.memoUsage.format": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "$(database) ${used}/${total} ${unit}, ${percent}%",
             "markdownDescription": "You can use these variables to custom display format: `${used}` `${total}` `${unit}` `${percent}` `${pressurePercent}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           },
           "statsBar.uptime.format": {
             "type": "string",
+            "scope": "machine-overridable",
             "default": "${days}d, ${hours}h, ${minutes}m",
             "markdownDescription": "You can use these variables to custom display format: `${days}` `${hours}` `${minutes}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
           }
@@ -252,7 +262,7 @@
     "vscode-test": "^1.5.2"
   },
   "dependencies": {
-    "systeminformation": "^5.8.0"
+    "systeminformation": "5.12.1"
   },
   "bugs": {
     "url": "https://github.com/njzydark/vscode-stats-bar/issues"
