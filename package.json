@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"
@@ -220,6 +220,39 @@
         {
           "command": "StatsBar.DisableUptime",
           "when": "statsBar.uptime"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "statsBar",
+          "title": "System Stats Monitor",
+          "icon": "$(dashboard)"
+        }
+      ]
+    },
+    "views": {
+      "statsBar": [
+        {
+          "id": "statsBar_system",
+          "name": "System"
+        },
+        {
+          "id": "statsBar_memory",
+          "name": "Memory"
+        },
+        {
+          "id": "statsBar_network",
+          "name": "Network"
+        },
+        {
+          "id": "statsBar_cpu",
+          "name": "CPU"
+        },
+        {
+          "id": "statsBar_gpu",
+          "name": "GPU"
         }
       ]
     }

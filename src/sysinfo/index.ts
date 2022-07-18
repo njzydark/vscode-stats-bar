@@ -95,3 +95,69 @@ export const StatsModuleNameMap: { [key in StatsModule]: string } = {
   memoUsage: 'MemoryUsage',
   uptime: 'Uptime'
 };
+
+export async function getSystemInfo() {
+  try {
+    const res = await si.osInfo();
+    return {
+      platform: res.platform,
+      distro: res.distro,
+      release: res.release,
+      kernel: res.kernel,
+      arch: res.arch,
+      hostname: res.hostname
+    };
+  } catch (err) {}
+}
+
+export async function getMemoryInfo() {
+  return getMemoryUsage();
+}
+
+export async function getNetworkInfo() {
+  try {
+    const [ip, speedInfo] = await Promise.all([getIP(), getNetworkSpeed()]);
+    return {
+      ip,
+      up: speedInfo?.up,
+      down: speedInfo?.down
+    };
+  } catch (err) {}
+}
+
+export async function getCpuInfo() {
+  try {
+    const [baseInfo, speedInfo, loadInfo] = await Promise.all([si.cpu(), si.cpuCurrentSpeed(), si.currentLoad()]);
+    return {
+      manufacturer: baseInfo.manufacturer,
+      brand: baseInfo.brand,
+      speed: baseInfo.speed,
+      cores: baseInfo.cores,
+      virtualization: baseInfo.virtualization,
+      currentSpeed: speedInfo.avg,
+      currentLoad: loadInfo.currentLoad,
+      uptime: os.uptime()
+    };
+  } catch (err) {}
+}
+
+export async function getGpuInfo() {
+  try {
+    const res = await si.graphics();
+    return res.controllers;
+  } catch (err) {}
+}
+
+export const sideBarSysInfoData = {
+  system: getSystemInfo,
+  memory: getMemoryInfo,
+  network: getNetworkInfo,
+  cpu: getCpuInfo,
+  gpu: getGpuInfo
+};
+
+export type SideBarStatsModuleData = typeof sideBarSysInfoData;
+
+export type SideBarStatsModule = keyof typeof sideBarSysInfoData;
+
+export const allSideBarStatsModules = Object.keys(sideBarSysInfoData) as SideBarStatsModule[];
