@@ -1,8 +1,19 @@
 import * as si from 'systeminformation';
 import * as os from 'os';
 import { getMacOsMemoryUsageInfo } from './memory';
+import { isDarwin, isWin32 } from '../utils';
 
-export const isDarwin = os.platform() === 'darwin';
+export function siInit() {
+  if (isWin32) {
+    si.powerShellStart();
+  }
+}
+
+export function siRelease() {
+  if (isWin32) {
+    si.powerShellRelease();
+  }
+}
 
 export async function getCpuSpeed() {
   try {

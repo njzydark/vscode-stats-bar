@@ -10,5 +10,5 @@ export function activate(context: ExtensionContext) {
 }
 
 export function deactivate() {
-  statsBar.cancelUpdate();
+  statsBar.cancelUpdate(true);
 }

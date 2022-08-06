@@ -1,8 +1,8 @@
 import { ExtensionContext, StatusBarAlignment, StatusBarItem, window } from 'vscode';
 import { ConfigurationKeys } from './types';
-import { sysinfoData, SysinfoData, StatsModule, isDarwin, StatsModuleNameMap } from './sysinfo';
+import { sysinfoData, SysinfoData, StatsModule, StatsModuleNameMap, siInit, siRelease } from './sysinfo';
 import { setting } from './setting';
-import { formatBytes, formatTimes, formatByDict } from './utils';
+import { formatBytes, formatTimes, formatByDict, isDarwin } from './utils';
 
 type Await<T extends () => unknown> = T extends () => PromiseLike<infer U> ? U : ReturnType<T>;
 
@@ -13,6 +13,7 @@ class StatsBar {
 
   init(context: ExtensionContext) {
     this._context = context;
+    siInit();
     this.start();
   }
 
@@ -137,7 +138,10 @@ class StatsBar {
     this.start();
   }
 
-  cancelUpdate() {
+  cancelUpdate(isDeactivate = false) {
+    if (isDeactivate) {
+      siRelease();
+    }
     if (this.timer) {
       clearInterval(this.timer);
     }

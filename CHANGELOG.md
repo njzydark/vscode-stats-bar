@@ -2,6 +2,12 @@
 
 All notable changes to the stats bar extension will be documented in this file.
 
+## [0.5.2] - 2022-08-07
+
+### Fixed
+
+- High cpu usage on Windows [#4](https://github.com/njzydark/vscode-stats-bar/issues/4) and may be [#1](https://github.com/njzydark/vscode-stats-bar/issues/1)
+
 ## [0.5.1] - 2022-07-17
 
 ### Added

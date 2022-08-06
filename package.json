@@ -2,7 +2,7 @@
   "name": "stats-bar",
   "displayName": "Stats Bar",
   "description": "A status bar to show system stats",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "publisher": "njzy",
   "engines": {
     "vscode": "^1.50.0"
@@ -225,6 +225,8 @@
     }
   },
   "scripts": {
+    "package": "npx vsce package",
+    "publish": "npx vsce publish",
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
@@ -262,7 +264,7 @@
     "vscode-test": "^1.5.2"
   },
   "dependencies": {
-    "systeminformation": "5.12.1"
+    "systeminformation": "5.12.3"
   },
   "bugs": {
     "url": "https://github.com/njzydark/vscode-stats-bar/issues"

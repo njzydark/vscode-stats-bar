@@ -1,3 +1,9 @@
+import * as os from 'os';
+
+export const platform = os.platform();
+export const isWin32 = platform === 'win32';
+export const isDarwin = platform === 'darwin';
+
 export function formatBytes(data: number, fixedNumber = 0, customSize = 0) {
   const KB = 1024;
   const MB = 1024 * 1024;
