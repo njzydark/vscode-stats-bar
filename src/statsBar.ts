@@ -129,6 +129,16 @@ class StatsBar {
 
         formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.UptimeFormat), dict);
       }
+    } else if (module === 'internetState') {
+      const res = rawRes as Await<SysinfoData['internetState']>;
+      if (res) {
+        const dict = {
+          ping: res.ms !== null ? `${res.ms}ms` : '❌',
+          emoji: res.status === 200 ? '🟢' : ''
+        };
+
+        formatedData.text = formatByDict(setting.cfg?.get(ConfigurationKeys.InternetStateFormat), dict);
+      }
     }
     return formatedData;
   }

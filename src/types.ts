@@ -25,5 +25,6 @@ export enum ConfigurationKeys {
   LoadavgFormat = 'loadavg.format',
   NetworkSpeedFormat = 'networkSpeed.format',
   MemoUsageFormat = 'memoUsage.format',
-  UptimeFormat = 'uptime.format'
+  UptimeFormat = 'uptime.format',
+  InternetStateFormat = 'internetState.format'
 }

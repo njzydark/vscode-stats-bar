@@ -52,6 +52,7 @@
             "type": "array",
             "scope": "machine-overridable",
             "default": [
+              "internetState",
               "cpuLoad",
               "networkSpeed",
               "memoUsage"
@@ -66,7 +67,8 @@
                 "loadavg",
                 "networkSpeed",
                 "memoUsage",
-                "uptime"
+                "uptime",
+                "internetState"
               ]
             },
             "markdownDescription": "Control the modules to be enabled and the display order (You can drag the item to control the order)"
@@ -113,6 +115,12 @@
             "scope": "machine-overridable",
             "default": "${days}d, ${hours}h, ${minutes}m",
             "markdownDescription": "You can use these variables to custom display format: `${days}` `${hours}` `${minutes}` or visit [doc](https://github.com/njzydark/vscode-stats-bar#display-format) to see detail (e.g. how use icon)"
+          },
+          "statsBar.internetState.format": {
+            "type": "string",
+            "scope": "machine-overridable",
+            "default": "$(cloud) ${emoji} ${ping}",
+            "markdownDescription": "Internet State status bar"
           }
         }
       }

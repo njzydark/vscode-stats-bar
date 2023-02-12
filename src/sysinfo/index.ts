@@ -36,6 +36,13 @@ export async function getLoadavg() {
   } catch (err) {}
 }
 
+export async function getInternetState() {
+  try {
+    const res = await si.inetChecksite('https://1.1.1.1/');
+    return res;
+  } catch (err) {}
+}
+
 export async function getIP() {
   const defaultInterface = await si.networkInterfaceDefault();
   const res = await si.networkInterfaces();
@@ -88,7 +95,8 @@ export const sysinfoData = {
   loadavg: getLoadavg,
   networkSpeed: getNetworkSpeed,
   memoUsage: getMemoryUsage,
-  uptime: getUpTime
+  uptime: getUpTime,
+  internetState: getInternetState
 };
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -104,5 +112,6 @@ export const StatsModuleNameMap: { [key in StatsModule]: string } = {
   loadavg: 'Loadavg',
   networkSpeed: 'NetworkSpeed',
   memoUsage: 'MemoryUsage',
-  uptime: 'Uptime'
+  uptime: 'Uptime',
+  internetState: 'InternetState'
 };
